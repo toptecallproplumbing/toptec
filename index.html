@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOP TEC</title>
+    <style>
+        /* Reset margin and padding to ensure full coverage **/
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: black; /* Background color to fill empty space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Image styling to fit within the screen without cropping */
+        #artwork {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain; /* Ensures the whole image is visible without cropping */
+        }
+
+        /* Download button positioned at top right */
+        .download-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <img id="artwork" src="horizontal.png" alt="My Artwork">
+    <a id="downloadLink" href="horizontal.png" download="horizontal.png">
+        <button class="download-btn">Download Image</button>
+    </a>
+
+    <script>
+        function updateArtwork() {
+            const img = document.getElementById('artwork');
+            const downloadLink = document.getElementById('downloadLink');
+
+            // Check orientation to select the right image
+            if (window.matchMedia("(orientation: portrait)").matches) {
+                // Portrait mode (mobile/tablet)
+                img.src = 'vertical.png';
+                downloadLink.href = 'vertical.png';
+                downloadLink.setAttribute('download', 'vertical.png');
+            } else {
+                // Landscape mode (laptop/desktop)
+                img.src = 'horizontal.png';
+                downloadLink.href = 'horizontal.png';
+                downloadLink.setAttribute('download', 'horizontal.png');
+            }
+        }
+
+        // Initial check when the page loads
+        window.addEventListener('load', updateArtwork);
+
+        // Handle screen orientation changes and resizing
+        window.addEventListener('resize', updateArtwork);
+        window.addEventListener('orientationchange', updateArtwork);
+    </script>
+</body>
+</html>
